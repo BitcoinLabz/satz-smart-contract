@@ -1,0 +1,13 @@
+# Ignore Clarinet build files
+build/
+
+# Ignore temporary files
+*.tmp
+*.log
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Node.js dependencies (if using)
+node_modules/
