@@ -19,9 +19,9 @@
 (define-constant TOKEN_URI "https://raw.githubusercontent.com/Bitcoinlabz/SATZ-Smart-Contract/main/metadata/logo.png") ;; Metadata URI for token logo
 
 ;; Tax Rates (all in SATZ)
-(define-constant TAX-RATE 5)      ;; 5% total tax on transfers
-(define-constant TREASURY-TAX 3)  ;; 3% to treasury
-(define-constant HOLDERS-TAX 2)   ;; 2% to holder rewards
+(define-constant TAX-RATE u5)      ;; 5% total tax on transfers
+(define-constant TREASURY-TAX u3)  ;; 3% to treasury
+(define-constant HOLDERS-TAX u2)   ;; 2% to holder rewards
 
 ;; Data Variables
 (define-data-var circulating-supply uint u0)  ;; Tracks circulating supply
@@ -29,8 +29,8 @@
 (define-data-var governance-address principal 'SP3D1VC4WBM939SA65CTHS7HEVF8GJA6N9Y2APJWV)  ;; Fixed governance address
 (define-data-var in-claim-rewards bool false) ;; Reentrancy guard
 
-;; Holder rewards map defined as a persistent mapping.
-(define-map holder-rewards ((holder principal)) (reward uint))
+;; Holder rewards mapping: maps a principal (holder) to a uint reward.
+(define-map holder-rewards {holder: principal} uint)
 
 ;; SIP-010 Compliance Implementation
 (define-fungible-token SATZ TOTAL_SUPPLY)
@@ -73,8 +73,8 @@
         (asserts! (is-ok (ft-transfer? SATZ final-amount tx-sender recipient)) (err ERR_TRANSFER_FAILED))
         (asserts! (is-ok (ft-transfer? SATZ treasury-tax tx-sender TREASURY)) (err ERR_TRANSFER_FAILED))
         ;; Accumulate the holder's tax rewards (no tax is charged when these rewards are later claimed)
-        (let ((existing (unwrap! (get reward (map-get? holder-rewards {holder: recipient})) u0)))
-          (map-set holder-rewards {holder: recipient} {reward: (+ holders-tax existing)}))
+        (let ((existing (default-to u0 (map-get? holder-rewards {holder: recipient}))))
+          (map-set holder-rewards {holder: recipient} (+ existing holders-tax)))
         (ok true)
       ))
   ))
@@ -85,7 +85,7 @@
     ;; Reentrancy guard
     (asserts! (not (var-get in-claim-rewards)) (err ERR_REENTRANCY_DETECTED))
     (var-set in-claim-rewards true)
-    (let ((reward (unwrap! (get reward (map-get? holder-rewards {holder: tx-sender})) u0)))
+    (let ((reward (default-to u0 (map-get? holder-rewards {holder: tx-sender}))))
       (asserts! (> reward u0) (err "No rewards available"))
       ;; Ensure minting the reward does not exceed the total supply
       (asserts! (<= (+ (var-get circulating-supply) reward) TOTAL_SUPPLY) (err ERR_SUPPLY_EXCEEDED))
