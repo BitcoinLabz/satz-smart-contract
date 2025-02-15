@@ -16,6 +16,7 @@
 ;; Token Metadata
 (define-constant TOKEN_NAME "Satoshi Ordinals")  ;; Token name
 (define-constant TOKEN_SYMBOL "SATZ")  ;; Token symbol
+(define-constant TOKEN_URI "https://example.com/token-metadata.json") ;; Metadata URI for token logo
 
 ;; Tax Rates
 (define-constant TAX-RATE 5)      ;; 5% total tax
@@ -30,6 +31,10 @@
 
 ;; SIP-010 Compliance Implementation
 (define-fungible-token SATZ TOTAL_SUPPLY)
+
+;; Token Metadata Function
+(define-read-only (get-token-uri)
+  (ok TOKEN_URI))
 
 ;; Mint Function (For Liquidity Pool Allocation)
 (define-public (mint-tokens (amount uint) (recipient principal))
