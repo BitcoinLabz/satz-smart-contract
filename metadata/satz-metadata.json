@@ -2,6 +2,7 @@
     "name": "Satoshi Ordinals",
     "symbol": "SATZ",
     "description": "Satoshi Ordinals is a revolutionary token bridging Bitcoin and Stacks.",
-    "image": "https://raw.githubusercontent.com/YOUR-GITHUB-USERNAME/SATZ-Smart-Contract/main/metadata/logo.png"
+    "image": "https://raw.githubusercontent.com/Dingleberry42069/SATZ-Smart-Contract/main/metadata/logo.png",
+    "decimals": 8
   }
   
