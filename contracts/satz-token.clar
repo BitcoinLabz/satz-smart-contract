@@ -16,7 +16,7 @@
 ;; Token Metadata
 (define-constant TOKEN_NAME "Satoshi Ordinals")  ;; Token name
 (define-constant TOKEN_SYMBOL "SATZ")  ;; Token symbol
-(define-constant TOKEN_URI "https://raw.githubusercontent.com/YOUR-GITHUB-USERNAME/SATZ-Smart-Contract/main/metadata/satz-metadata.json") ;; Metadata URI for token logo
+(define-constant TOKEN_URI "https://raw.githubusercontent.com/Dingleberry42069/SATZ-Smart-Contract/main/metadata/satz-metadata.json") ;; Metadata URI for token logo
 
 ;; Tax Rates
 (define-constant TAX-RATE 5)      ;; 5% total tax
