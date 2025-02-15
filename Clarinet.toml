@@ -1,0 +1,19 @@
+[project]
+name = "satz-smart-contract"
+description = "SATZ Token Smart Contract"
+authors = ["Dingleberry42069"]
+cache_dir = "./.cache"
+
+[contracts.satz-token]
+path = "contracts/satz-token.clar"
+
+[repl.analysis]
+passes = ["check_checker"]
+check_checker = { trusted_sender = false, trusted_caller = false, callee_filter = false }
+
+[networks]
+testnet = { name = "testnet", rpc_url = "https://stacks-node-api.testnet.stacks.co" }
+mainnet = { name = "mainnet", rpc_url = "https://stacks-node-api.mainnet.stacks.co" }
+
+[devnet]
+api_url = "http://localhost:3999"
