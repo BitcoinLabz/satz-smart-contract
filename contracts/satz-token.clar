@@ -12,6 +12,7 @@
 (define-constant ERR_ONLY_GOVERNANCE u1005)
 (define-constant ERR_INVALID_INPUT u1006)
 (define-constant ERR_SUPPLY_EXCEEDED u1007)
+(define-constant ERR_NO_REWARDS_AVAILABLE u1008)  ;; New error code for reward claims
 
 ;; Token Metadata
 (define-constant TOKEN_NAME "Bitcoin Labz")  ;; Token name
@@ -86,7 +87,7 @@
     (asserts! (not (var-get in-claim-rewards)) (err ERR_REENTRANCY_DETECTED))
     (var-set in-claim-rewards true)
     (let ((reward (default-to u0 (map-get? holder-rewards {holder: tx-sender}))))
-      (asserts! (> reward u0) (err "No rewards available"))
+      (asserts! (> reward u0) (err ERR_NO_REWARDS_AVAILABLE))
       ;; Ensure minting the reward does not exceed the total supply
       (asserts! (<= (+ (var-get circulating-supply) reward) TOTAL_SUPPLY) (err ERR_SUPPLY_EXCEEDED))
       (asserts! (is-ok (ft-mint? SATZ reward tx-sender)) (err ERR_TRANSFER_FAILED))
