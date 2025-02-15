@@ -1,7 +1,7 @@
 [project]
 name = "satz-smart-contract"
 description = "SATZ Token Smart Contract"
-authors = ["Dingleberry42069"]
+authors = ["Bitcoinlabz"]
 cache_dir = "./.cache"
 
 [contracts.satz-token]

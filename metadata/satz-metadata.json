@@ -1,8 +1,7 @@
 {
-    "name": "Satoshi Ordinals",
-    "symbol": "SATZ",
-    "description": "Satoshi Ordinals is a revolutionary token bridging Bitcoin and Stacks.",
-    "image": "https://raw.githubusercontent.com/Dingleberry42069/SATZ-Smart-Contract/main/metadata/logo.png",
-    "decimals": 8
-  }
-  
+  "name": "Bitcoin Labz",
+  "symbol": "SATZ",
+  "description": "Bitcoin Labz is a revolutionary token bridging Bitcoin and Stacks.",
+  "image": "https://raw.githubusercontent.com/Bitcoinlabz/SATZ-Smart-Contract/main/metadata/logo.png",
+  "decimals": 8
+}
