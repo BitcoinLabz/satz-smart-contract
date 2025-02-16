@@ -19,7 +19,7 @@
 (define-constant TOKEN_NAME "Bitcoin Labz")    ;; Token name
 (define-constant TOKEN_SYMBOL "SATZ")            ;; Token symbol
 ;; Updated TOKEN_URI to point to your JSON metadata file hosted on GitHub Pages.
-(define-constant TOKEN_URI "https://bitcoinlabz.github.io/satz-smart-contract/satz-metadata.json")
+(define-constant TOKEN_URI "https://bitcoinlabz.github.io/satz-smart-contract/metadata/satz-metadata.json")
 
 ;; Tax Rates (all in SATZ)
 (define-constant TAX-RATE u5)      ;; 5% total tax on transfers
