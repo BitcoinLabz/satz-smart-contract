@@ -12,12 +12,14 @@
 (define-constant ERR_ONLY_GOVERNANCE u1005)
 (define-constant ERR_INVALID_INPUT u1006)
 (define-constant ERR_SUPPLY_EXCEEDED u1007)
-(define-constant ERR_NO_REWARDS_AVAILABLE u1008)  ;; New error code for reward claims
+(define-constant ERR_NO_REWARDS_AVAILABLE u1008)  ;; For reward claims
+(define-constant ERR_ALREADY_INITIALIZED u1009)   ;; For initialization
 
 ;; Token Metadata
-(define-constant TOKEN_NAME "Bitcoin Labz")  ;; Token name
-(define-constant TOKEN_SYMBOL "SATZ")  ;; Token symbol
-(define-constant TOKEN_URI "https://raw.githubusercontent.com/Bitcoinlabz/SATZ-Smart-Contract/main/metadata/logo.png") ;; Metadata URI for token logo
+;; Point to your JSON metadata file hosted on GitHub Pages.
+(define-constant TOKEN_NAME "Bitcoin Labz")    ;; Token name
+(define-constant TOKEN_SYMBOL "SATZ")            ;; Token symbol
+(define-constant TOKEN_URI "https://bitcoinlabz.github.io/satz-smart-contract/metadata.json") ;; JSON metadata URI
 
 ;; Tax Rates (all in SATZ)
 (define-constant TAX-RATE u5)      ;; 5% total tax on transfers
@@ -25,10 +27,11 @@
 (define-constant HOLDERS-TAX u2)   ;; 2% to holder rewards
 
 ;; Data Variables
-(define-data-var circulating-supply uint u0)  ;; Tracks circulating supply
-(define-data-var last-payout-height uint u0)  ;; For future payout tracking
+(define-data-var circulating-supply uint u0)   ;; Tracks circulating supply
+(define-data-var last-payout-height uint u0)     ;; For future payout tracking
 (define-data-var governance-address principal 'SP3D1VC4WBM939SA65CTHS7HEVF8GJA6N9Y2APJWV)  ;; Fixed governance address
-(define-data-var in-claim-rewards bool false) ;; Reentrancy guard
+(define-data-var in-claim-rewards bool false)    ;; Reentrancy guard
+(define-data-var tokens-initialized bool false)  ;; Ensures tokens are only minted once
 
 ;; Holder rewards mapping: maps a principal (holder) to a uint reward.
 (define-map holder-rewards {holder: principal} uint)
@@ -40,7 +43,21 @@
 (define-read-only (get-token-uri)
   (ok TOKEN_URI))
 
-;; Mint Function (For Liquidity Pool Allocation)
+;; Auto-Initialization Function:
+;; This function mints the entire TOTAL_SUPPLY to the governance wallet.
+(define-public (initialize-tokens)
+  (begin
+    (asserts! (is-eq tx-sender (var-get governance-address)) (err ERR_ONLY_GOVERNANCE))
+    (asserts! (not (var-get tokens-initialized)) (err ERR_ALREADY_INITIALIZED))
+    (let ((mint-amount TOTAL_SUPPLY))
+      (var-set circulating-supply mint-amount)
+      (asserts! (is-ok (ft-mint? SATZ mint-amount (var-get governance-address))) (err ERR_TRANSFER_FAILED))
+      (var-set tokens-initialized true)
+      (ok mint-amount)
+    )
+  ))
+
+;; (Optional) Mint Function (for additional minting if needed)
 (define-public (mint-tokens (amount uint) (recipient principal))
   (begin
     (asserts! (is-eq tx-sender (var-get governance-address)) (err ERR_ONLY_GOVERNANCE))
