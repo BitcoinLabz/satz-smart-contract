@@ -1,7 +1,6 @@
 {
   "name": "Bitcoin Labz",
   "symbol": "SATZ",
-  "description": "Bitcoin Labz is a revolutionary token bridging Bitcoin and Stacks.",
-  "image": "https://raw.githubusercontent.com/Bitcoinlabz/SATZ-Smart-Contract/main/metadata/logo.png",
-  "decimals": 8
+  "description": "Built on Bitcoin using Stacks",
+  "image": "https://bitcoinlabz.github.io/satz-smart-contract/metadata/logo.png"
 }
