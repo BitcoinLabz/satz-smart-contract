@@ -1,6 +1,19 @@
 {
-  "name": "Bitcoin Labz",
-  "symbol": "SATZ",
-  "description": "Built on Bitcoin using Stacks",
-  "image": "https://bitcoinlabz.github.io/satz-smart-contract/metadata/logo.png"
+  "title": "Asset Metadata",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Bitcoin Labz"
+    },
+    "description": {
+      "type": "string",
+      "description": "SATZ Governance and Rewards Token"
+    },
+    "image": {
+      "type": "string",
+      "description": "A URI pointing to the token logo",
+      "example": "https://raw.githubusercontent.com/Bitcoinlabz/SATZ-Smart-Contract/main/metadata/logo.png"
+    }
+  }
 }
