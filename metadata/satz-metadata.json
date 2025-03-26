@@ -13,7 +13,7 @@
     "image": {
       "type": "string",
       "description": "A URI pointing to the token logo",
-      "example": "https://raw.githubusercontent.com/Bitcoinlabz/SATZ-Smart-Contract/main/metadata/logo.png"
+      "example": "https://raw.githubusercontent.com/Bitcoinlabz/SATZ-Smart-Contract-test/main/metadata/logo.png"
     }
   }
 }
