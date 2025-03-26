@@ -7,7 +7,7 @@
 ;; Token Metadata
 (define-constant TOKEN_NAME "Bitcoin Labz")     ;; Human-readable token name
 (define-constant TOKEN_SYMBOL "SATZ")            ;; Ticker symbol
-(define-constant TOKEN_URI "https://raw.githubusercontent.com/Bitcoinlabz/SATZ-Smart-Contract/main/metadata/satz-metadata.json") ;; Metadata URI pointing to a JSON file with token details
+(define-constant TOKEN_URI "https://raw.githubusercontent.com/Bitcoinlabz/SATZ-Smart-Contract-test/main/metadata/satz-metadata.json") ;; Metadata URI pointing to a JSON file with token details
 (define-constant TOKEN_DECIMALS u6)              ;; Token decimals (e.g., u6 means 1 token = 1,000,000 units)
 
 ;; SIP-010 Compliance Implementation
