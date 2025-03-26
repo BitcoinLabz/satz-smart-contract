@@ -1,7 +1,7 @@
 ;; SATZ Governance and Rewards Token Contract
 
 ;; Tokenomic Constants
-(define-constant TOTAL_SUPPLY u10000000000)  ;; 10 billion total supply
+(define-constant TOTAL_SUPPLY u1000000000)  ;; 1 billion total supply
 (define-constant TREASURY 'SP3D1VC4WBM939SA65CTHS7HEVF8GJA6N9Y2APJWV)  ;; Treasury wallet
 
 ;; Token Metadata
